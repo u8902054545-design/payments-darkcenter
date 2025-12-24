@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Доступ ограничен</title>
+    <!-- Подключение шрифтов Google Fonts (Roboto и Material Symbols) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
+
+    <style>
+        :root {
+            /* Google Material 3 Color Tokens (Error Palette) */
+            --md-sys-color-background: #FFFBFF;
+            --md-sys-color-on-background: #201A1B;
+            
+            --md-sys-color-error: #BA1A1A;
+            --md-sys-color-on-error: #FFFFFF;
+            --md-sys-color-error-container: #FFDAD6;
+            --md-sys-color-on-error-container: #410002;
+
+            --md-sys-color-primary: #6750A4;
+            --md-sys-color-on-primary: #FFFFFF;
+            --md-sys-color-secondary-container: #E8DEF8;
+            --md-sys-color-on-secondary-container: #1D192B;
+        }
+
+        /* Dark Mode Support */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --md-sys-color-background: #201A1B;
+                --md-sys-color-on-background: #ECE0E1;
+                
+                --md-sys-color-error: #FFB4AB;
+                --md-sys-color-on-error: #690005;
+                --md-sys-color-error-container: #93000A;
+                --md-sys-color-on-error-container: #FFDAD6;
+
+                --md-sys-color-primary: #D0BCFF;
+                --md-sys-color-on-primary: #381E72;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+            /* Запрет выделения */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            /* Отключение системного меню при долгом тапе на iOS */
+            -webkit-touch-callout: none;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--md-sys-color-background);
+            color: var(--md-sys-color-on-background);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+            overflow: hidden;
+            cursor: default;
+        }
+
+        .container {
+            max-width: 480px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .icon-container {
+            width: 120px;
+            height: 120px;
+            background-color: var(--md-sys-color-error-container);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 32px;
+            position: relative;
+            pointer-events: none; 
+        }
+
+        .icon-container .material-symbols-rounded {
+            font-size: 64px;
+            color: var(--md-sys-color-on-error-container);
+        }
+
+        .headline {
+            font-size: 32px;
+            line-height: 40px;
+            font-weight: 400;
+            margin-bottom: 16px;
+            color: var(--md-sys-color-on-background);
+        }
+
+        .supporting-text {
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0.5px;
+            color: var(--md-sys-color-on-background);
+            opacity: 0.8;
+            margin-bottom: 48px;
+            max-width: 360px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 12px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn {
+            position: relative;
+            overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            height: 40px;
+            padding: 0 24px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.1px;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            text-decoration: none;
+            transition: box-shadow 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            pointer-events: auto; 
+        }
+
+        .btn-filled {
+            background-color: var(--md-sys-color-error);
+            color: var(--md-sys-color-on-error);
+        }
+        
+        .btn-filled:hover {
+            box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15);
+            opacity: 0.92;
+        }
+
+        .btn-tonal {
+            background-color: transparent;
+            color: var(--md-sys-color-error);
+            border: 1px solid var(--md-sys-color-error);
+        }
+
+        .btn-tonal:hover {
+            background-color: var(--md-sys-color-error-container);
+            color: var(--md-sys-color-on-error-container);
+            border-color: transparent;
+        }
+
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-tonal .ripple {
+            background-color: rgba(186, 26, 26, 0.15);
+        }
+
+        @keyframes ripple {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            .actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+    <div class="container">
+        <div class="icon-container">
+            <span class="material-symbols-rounded">gpp_bad</span>
+        </div>
+
+        <h1 class="headline">Доступ ограничен</h1>
+        
+        <p class="supporting-text">
+            У тебя нет прав для просмотра этой страницы. Пожалуйста, свяжись с администратором или войди в другой аккаунт.
+        </p>
+
+        <div class="actions">
+            <!-- Ссылка скрыта -->
+            <button class="btn btn-filled" id="mainLinkBtn">
+                На главную
+            </button>
+            
+            <button class="btn btn-tonal" id="logoutBtn">
+                Сменить аккаунт
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // --- Конфигурация Ссылок ---
+        const LINKS = {
+            MAIN: "https://u8902054545-design.github.io/main-screen-darkcenter/",
+            AUTH: "https://u8902054545-design.github.io/Auth-ITC-Platform/"
+        };
+
+        // --- Обработчики событий ---
+
+        // 1. Переход на главную
+        document.getElementById('mainLinkBtn').addEventListener('click', function(event) {
+            createRipple(event);
+            setTimeout(() => {
+                window.location.href = LINKS.MAIN;
+            }, 200);
+        });
+
+        // 2. Смена аккаунта (Очистка + Редирект)
+        document.getElementById('logoutBtn').addEventListener('click', function(event) {
+            createRipple(event);
+            
+            // Полная очистка данных
+            localStorage.clear();
+            sessionStorage.clear();
+            
+            document.cookie.split(";").forEach(function(c) { 
+                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
+            });
+
+            setTimeout(() => {
+                window.location.href = LINKS.AUTH;
+            }, 200);
+        });
+
+        // --- Визуальные эффекты ---
+
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement("span");
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
+            circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
+            circle.classList.add("ripple");
+
+            const ripple = button.getElementsByClassName("ripple")[0];
+            if (ripple) {
+                ripple.remove();
+            }
+            button.appendChild(circle);
+        }
+
+        // --- Блокировка Копирования и Инспекции ---
+
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('selectstart', event => event.preventDefault());
+        document.addEventListener('dragstart', event => event.preventDefault());
+
+        document.addEventListener('keydown', function(e) {
+            if (
+                (e.ctrlKey && (e.key === 'c' || e.key === 'C')) || 
+                (e.ctrlKey && (e.key === 'u' || e.key === 'U')) || 
+                (e.ctrlKey && (e.key === 's' || e.key === 'S')) || 
+                e.key === 'F12'
+            ) {
+                e.preventDefault();
+                return false;
+            }
+        });
+    </script>
+</body>
+</html>
