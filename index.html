@@ -3,299 +3,327 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Доступ ограничен</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,0,0" rel="stylesheet">
-
+    <title>Выплаты</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            /* Google Material 3 Color Tokens (Error Palette) */
-            --md-sys-color-background: #FFFBFF;
-            --md-sys-color-on-background: #201A1B;
-            
-            --md-sys-color-error: #BA1A1A;
-            --md-sys-color-on-error: #FFFFFF;
-            --md-sys-color-error-container: #FFDAD6;
-            --md-sys-color-on-error-container: #410002;
-
-            --md-sys-color-primary: #6750A4;
-            --md-sys-color-on-primary: #FFFFFF;
-            --md-sys-color-secondary-container: #E8DEF8;
-            --md-sys-color-on-secondary-container: #1D192B;
-        }
-
-        /* Dark Mode Support */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --md-sys-color-background: #201A1B;
-                --md-sys-color-on-background: #ECE0E1;
-                
-                --md-sys-color-error: #FFB4AB;
-                --md-sys-color-on-error: #690005;
-                --md-sys-color-error-container: #93000A;
-                --md-sys-color-on-error-container: #FFDAD6;
-
-                --md-sys-color-primary: #D0BCFF;
-                --md-sys-color-on-primary: #381E72;
-            }
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            transition: background-color 0.3s, color 0.3s;
-            /* Запрет выделения */
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
-            /* Отключение системного меню при долгом тапе на iOS */
-            -webkit-touch-callout: none;
-        }
-
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: var(--md-sys-color-background);
-            color: var(--md-sys-color-on-background);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            padding: 24px;
-            overflow: hidden;
-            cursor: default;
-        }
-
-        .container {
-            max-width: 480px;
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            animation: fadeIn 0.6s ease-out;
-        }
-
-        .icon-container {
-            width: 120px;
-            height: 120px;
-            background-color: var(--md-sys-color-error-container);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 32px;
-            position: relative;
-            pointer-events: none; 
-        }
-
-        .icon-container .material-symbols-rounded {
-            font-size: 64px;
-            color: var(--md-sys-color-on-error-container);
-        }
-
-        .headline {
-            font-size: 32px;
-            line-height: 40px;
-            font-weight: 400;
-            margin-bottom: 16px;
-            color: var(--md-sys-color-on-background);
-        }
-
-        .supporting-text {
-            font-size: 16px;
-            line-height: 24px;
-            letter-spacing: 0.5px;
-            color: var(--md-sys-color-on-background);
-            opacity: 0.8;
-            margin-bottom: 48px;
-            max-width: 360px;
-        }
-
-        .actions {
-            display: flex;
-            gap: 12px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .btn {
-            position: relative;
-            overflow: hidden;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            height: 40px;
-            padding: 0 24px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 0.1px;
-            cursor: pointer;
-            border: none;
-            outline: none;
-            text-decoration: none;
-            transition: box-shadow 0.2s;
+            font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
-            pointer-events: auto; 
+            background-color: #0F0F0F;
         }
 
-        .btn-filled {
-            background-color: var(--md-sys-color-error);
-            color: var(--md-sys-color-on-error);
-        }
-        
-        .btn-filled:hover {
-            box-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 1px 3px 1px rgba(0,0,0,0.15);
-            opacity: 0.92;
+        .blue-border {
+            border: 1px solid #0000FF;
         }
 
-        .btn-tonal {
-            background-color: transparent;
-            color: var(--md-sys-color-error);
-            border: 1px solid var(--md-sys-color-error);
-        }
-
-        .btn-tonal:hover {
-            background-color: var(--md-sys-color-error-container);
-            color: var(--md-sys-color-on-error-container);
-            border-color: transparent;
-        }
-
-        .ripple {
+        .label-on-border {
             position: absolute;
-            border-radius: 50%;
-            transform: scale(0);
-            animation: ripple 0.6s linear;
-            background-color: rgba(255, 255, 255, 0.3);
+            top: -10px;
+            left: 12px;
+            background-color: #0F0F0F;
+            padding: 0 6px;
+            font-size: 12px;
+            font-weight: 500;
+            color: #A3A3A3;
         }
 
-        .btn-tonal .ripple {
-            background-color: rgba(186, 26, 26, 0.15);
+        .skeleton {
+            height: 28px;
+            width: 80%;
+            background: linear-gradient(90deg, #1A1A1A 25%, #262626 50%, #1A1A1A 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite linear;
+            border-radius: 4px;
         }
 
-        @keyframes ripple {
-            to {
-                transform: scale(4);
-                opacity: 0;
-            }
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .chart-container::-webkit-scrollbar {
+            height: 4px;
+        }
+        .chart-container::-webkit-scrollbar-track {
+            background: #1A1A1A;
+        }
+        .chart-container::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
         }
 
-        @media (max-width: 600px) {
-            .actions {
-                flex-direction: column;
-                width: 100%;
-            }
-            .btn {
-                width: 100%;
-            }
+        .bar-grow {
+            animation: grow 0.8s ease-out forwards;
+            transform-origin: bottom;
+            transform: scaleY(0);
+        }
+
+        @keyframes grow {
+            to { transform: scaleY(1); }
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
     </style>
 </head>
-<body oncontextmenu="return false;">
+<body class="min-h-screen flex flex-col items-center p-4 pt-0 text-white">
+    
+    <header class="fixed top-0 left-0 right-0 z-40 bg-[#0F0F0F]/80 backdrop-blur-lg px-4 h-16 flex justify-between items-center max-w-lg mx-auto">
+        <div class="w-10 h-10"></div>
+        <h1 class="text-white text-base font-bold absolute left-1/2 transform -translate-x-1/2">
+            Выплаты
+        </h1>
+        <button onclick="openSheet()" class="text-neutral-500 p-2 z-10 active:scale-90 transition-transform outline-none">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+                <path d="M440-280h80v-240h-80v240Zm40-320q17 0 28.5-11.5T520-640q0-17-11.5-28.5T480-680q-17 0-28.5 11.5T440-640q0 17 11.5 28.5T480-600Zm0 520q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z"/>
+            </svg>
+        </button>
+    </header>
 
-    <div class="container">
-        <div class="icon-container">
-            <span class="material-symbols-rounded">gpp_bad</span>
+    <div class="w-full max-w-lg mt-16">
+        
+        <div class="flex flex-row flex-wrap gap-6 mb-6 mt-4">
+            <div class="flex-1 min-w-[140px] p-4 bg-[#0F0F0F] rounded-xl blue-border shadow-lg relative">
+                <span class="label-on-border">В обработке</span>
+                <div id="processing-container" class="mt-2 h-8 flex items-center">
+                    <div class="skeleton"></div>
+                </div>
+            </div>
+            <div class="flex-1 min-w-[140px] p-4 bg-[#0F0F0F] rounded-xl blue-border shadow-lg relative">
+                <span class="label-on-border">Доступно</span>
+                <div id="available-container" class="mt-2 h-8 flex items-center">
+                    <div class="skeleton"></div>
+                </div>
+            </div>
         </div>
 
-        <h1 class="headline">Доступ ограничен</h1>
-        
-        <p class="supporting-text">
-            У тебя нет прав для просмотра этой страницы. Пожалуйста, свяжись с администратором или войди в другой аккаунт.
-        </p>
+        <button onclick="openSheet()" class="w-full text-left text-sm font-semibold text-[#0000FF] hover:text-blue-400 transition mb-6 outline-none">
+            О расчёте суммы к выводу
+        </button>
 
-        <div class="actions">
-            <button class="btn btn-filled" id="mainLinkBtn">
-                На главную
-            </button>
+        <div class="flex items-start p-4 mb-4 bg-yellow-900/20 rounded-xl border border-yellow-700/50">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#EAB308" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 mt-0.5">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+            </svg>
+            <p class="ml-3 text-xs leading-relaxed text-yellow-200/80">
+                Отправлять средства на карту самостоятельно можно только при наличии сотрудничества с DarkCenter.
+            </p>
+        </div>
+
+        <button class="w-full flex items-center justify-between p-4 bg-neutral-900 hover:bg-neutral-800 transition rounded-2xl active:scale-[0.98] outline-none mb-10">
+            <div class="flex items-center">
+                <div class="w-10 h-10 rounded-full bg-neutral-800 flex items-center justify-center text-neutral-300 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor">
+                        <path d="M320-240h320v-80H320v80Zm0-160h320v-80H320v80Zm0-160h320v-80H320v80ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h480q33 0 56.5 23.5T800-800v640q0 33-23.5 56.5T720-80H240Zm0-80h480v-640H240v640Zm0 0v-640 640Z"/>
+                    </svg>
+                </div>
+                <span class="text-white text-sm font-medium">История транзакций</span>
+            </div>
+            <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="#737373">
+                <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/>
+            </svg>
+        </button>
+
+        <div class="w-full text-left mb-8">
+            <h2 class="text-white text-lg font-bold mb-1">Статистика дохода</h2>
+            <p class="text-neutral-500 text-xs mb-4">Статистика твоего дохода по дням, неделям и месяцам</p>
             
-            <button class="btn btn-tonal" id="logoutBtn">
-                Сменить аккаунт
+            <button class="inline-flex items-center px-4 py-2 bg-[#0000FF] hover:bg-blue-700 transition rounded-lg active:scale-95 outline-none shadow-lg mb-8">
+                <span class="text-white text-xs font-bold">Подробная статистика</span>
+            </button>
+
+            <div class="w-full p-4 mb-6 bg-[#0F0F0F] rounded-xl blue-border shadow-lg relative">
+                <span class="label-on-border">Заработано сегодня</span>
+                <div id="today-earning-container" class="mt-1 flex items-center">
+                    <span class="text-2xl font-bold text-white">₽ 0</span>
+                </div>
+            </div>
+
+            <div class="w-full overflow-x-auto chart-container pb-4 mb-8">
+                <div id="chart-wrapper" class="flex items-end gap-4 min-w-max px-2 h-48">
+                    <!-- График -->
+                </div>
+            </div>
+
+            <div class="space-y-3 mb-12">
+                <button class="w-full flex items-center p-4 bg-neutral-900/50 border border-neutral-800 hover:bg-neutral-800 transition rounded-2xl active:scale-[0.98] outline-none">
+                    <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor">
+                            <path d="M200-280v-400h560v400H200Zm0 80h560q33 0 56.5-23.5T840-280v-400q0-33-23.5-56.5T760-760H200q-33 0-56.5 23.5T120-680v400q0 33 23.5 56.5T200-200Zm40-320h160v-40H240v40Zm0 80h240v-40H240v40Zm0-160h480v-40H240v40Zm-40 240v-400 400Z"/>
+                        </svg>
+                    </div>
+                    <span class="text-white text-[15px] font-medium">Реквизиты</span>
+                    <svg class="ml-auto" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="#737373">
+                        <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/>
+                    </svg>
+                </button>
+
+                <button class="w-full flex items-center p-4 bg-neutral-900/50 border border-neutral-800 hover:bg-neutral-800 transition rounded-2xl active:scale-[0.98] outline-none">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24" fill="currentColor">
+                            <path d="M319-250h322v-60H319v60Zm0-170h322v-60H319v60ZM240-80q-33 0-56.5-23.5T160-160v-640q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H240Zm280-520v-200H240v640h480v-440H520ZM240-800v200-200 640-640Z"/>
+                        </svg>
+                    </div>
+                    <span class="text-white text-[15px] font-medium">Акты выполненных задач</span>
+                    <svg class="ml-auto" xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="#737373">
+                        <path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="infoSheet" class="hidden fixed inset-0 z-50 transition-opacity duration-300 pointer-events-none">
+        <div id="sheetOverlay" class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 pointer-events-auto" onclick="closeSheet()"></div>
+        <div id="sheetContent" class="fixed bottom-0 left-1/2 -translate-x-1/2 max-w-lg w-full bg-[#181818] rounded-t-3xl p-6 shadow-2xl transform translate-y-full transition-transform duration-300 ease-out pointer-events-auto">
+            <button onclick="closeSheet()" class="absolute top-4 right-4 p-2 text-neutral-500 hover:text-white transition-colors outline-none active:scale-90">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="w-10 h-1 bg-neutral-700 rounded-full mx-auto mb-6"></div>
+            <h2 class="text-white text-xl font-bold mb-4">О расчёте суммы к выводу</h2>
+            <div class="text-neutral-400 text-sm space-y-4 mb-8">
+                <p>Из суммы в обработке вычитаются возможные штрафы, корректировки и ваши покупки внутри платформы ITC.</p>
+                <p>Пользователи с активным сотрудничеством DarkCenter могут запрашивать вывод средств самостоятельно раз в час.</p>
+            </div>
+            <button onclick="closeSheet()" class="w-full py-4 bg-[#0000FF] text-white font-bold rounded-2xl active:scale-[0.98] transition-transform">
+                Понятно
             </button>
         </div>
     </div>
 
     <script>
-        // --- Конфигурация Ссылок ---
-        const LINKS = {
-            // Ссылка больше не используется для перехода, но оставим для порядка
-            MAIN: "https://u8902054545-design.github.io/main-screen-darkcenter/",
-            AUTH: "https://u8902054545-design.github.io/Auth-ITC-Platform/"
-        };
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz12cNixEqpaB8K_b54-vbirVhCC9_fPMMiEzyuf8wJGflYhHVx4-FFytrg-ei5W2EuWg/exec";
+        const formatCurrency = (val) => new Intl.NumberFormat('ru-RU').format(val);
 
-        // --- Обработчики событий ---
+        // Храним последнее состояние данных, чтобы избежать лишней перерисовки
+        let lastDataString = null;
+        let isFirstLoad = true;
 
-        // 1. Переход на главную (ОБНОВЛЕНО: postMessage вместо location.href)
-        document.getElementById('mainLinkBtn').addEventListener('click', function(event) {
-            createRipple(event);
-            setTimeout(() => {
-                // Отправляем сообщение родительскому окну
-                window.parent.postMessage('goHome', '*');
-            }, 200);
-        });
-
-        // 2. Смена аккаунта (Очистка + Редирект)
-        document.getElementById('logoutBtn').addEventListener('click', function(event) {
-            createRipple(event);
+        async function fetchUserData() {
+            const email = localStorage.getItem('userEmail') || "test@example.com"; // Тестовый email если пусто
             
-            // Полная очистка данных
-            localStorage.clear();
-            sessionStorage.clear();
-            
-            document.cookie.split(";").forEach(function(c) { 
-                document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); 
-            });
+            try {
+                // Добавляем timestamp для обхода кэша браузера
+                const response = await fetch(`${SCRIPT_URL}?email=${encodeURIComponent(email)}&_t=${Date.now()}`);
+                const data = await response.json();
 
-            setTimeout(() => {
-                window.location.href = LINKS.AUTH;
-            }, 200);
-        });
-
-        // --- Визуальные эффекты ---
-
-        function createRipple(event) {
-            const button = event.currentTarget;
-            const circle = document.createElement("span");
-            const diameter = Math.max(button.clientWidth, button.clientHeight);
-            const radius = diameter / 2;
-
-            circle.style.width = circle.style.height = `${diameter}px`;
-            circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
-            circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
-            circle.classList.add("ripple");
-
-            const ripple = button.getElementsByClassName("ripple")[0];
-            if (ripple) {
-                ripple.remove();
+                if (data.status === 'success') {
+                    // Проверяем, изменились ли данные вообще
+                    const currentDataString = JSON.stringify(data);
+                    if (currentDataString !== lastDataString) {
+                        updateUI(data);
+                        lastDataString = currentDataString;
+                    }
+                }
+            } catch (error) {
+                console.warn("Фоновое обновление не удалось:", error);
+            } finally {
+                isFirstLoad = false;
             }
-            button.appendChild(circle);
         }
 
-        // --- Блокировка Копирования и Инспекции ---
+        function updateUI(data) {
+            const procContainer = document.getElementById('processing-container');
+            const availContainer = document.getElementById('available-container');
+            const todayEarningContainer = document.getElementById('today-earning-container');
+            const wrapper = document.getElementById('chart-wrapper');
 
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.addEventListener('selectstart', event => event.preventDefault());
-        document.addEventListener('dragstart', event => event.preventDefault());
+            // Обновляем текстовые значения напрямую без очистки innerHTML, если это не первая загрузка
+            const procHtml = `<span class="text-2xl font-semibold text-white">₽ ${formatCurrency(data.processing)}</span>`;
+            const availHtml = `<span class="text-2xl font-semibold text-white">₽ ${formatCurrency(data.available)}</span>`;
+            const todayHtml = `<span class="text-2xl font-bold text-white">₽ ${formatCurrency(data.today)}</span>`;
 
-        document.addEventListener('keydown', function(e) {
-            if (
-                (e.ctrlKey && (e.key === 'c' || e.key === 'C')) || 
-                (e.ctrlKey && (e.key === 'u' || e.key === 'U')) || 
-                (e.ctrlKey && (e.key === 's' || e.key === 'S')) || 
-                e.key === 'F12'
-            ) {
-                e.preventDefault();
-                return false;
+            if (isFirstLoad) {
+                // На первой загрузке делаем небольшую паузу для красоты анимации скелетонов
+                setTimeout(() => {
+                    procContainer.innerHTML = procHtml;
+                    availContainer.innerHTML = availHtml;
+                    todayEarningContainer.innerHTML = todayHtml;
+                    renderChart(data.history, wrapper);
+                }, 600);
+            } else {
+                // Тихая замена данных
+                procContainer.innerHTML = procHtml;
+                availContainer.innerHTML = availHtml;
+                todayEarningContainer.innerHTML = todayHtml;
+                renderChart(data.history, wrapper);
             }
+        }
+
+        function renderChart(history, wrapper) {
+            if (!history || !Array.isArray(history)) return;
+
+            const maxVal = Math.max(...history, 100);
+            const today = new Date();
+            
+            // Сохраняем текущую позицию скролла
+            const container = document.querySelector('.chart-container');
+            const wasAtEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 10;
+
+            wrapper.innerHTML = '';
+
+            history.forEach((amount, i) => {
+                const date = new Date();
+                date.setDate(today.getDate() - (6 - i));
+                
+                const dayLabel = `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}`;
+                const heightPercent = (amount / maxVal) * 100;
+
+                const column = document.createElement('div');
+                column.className = "flex flex-col items-center gap-2 w-12";
+                // bar-grow применяется только при первой отрисовке или значительных изменениях
+                const animClass = isFirstLoad ? 'bar-grow' : '';
+                
+                column.innerHTML = `
+                    <span class="text-[10px] font-bold text-neutral-400 whitespace-nowrap">${amount}</span>
+                    <div class="w-8 bg-[#0000FF] rounded-t-lg ${animClass} relative group" style="height: ${heightPercent * 0.8 + 10}px;">
+                         <div class="absolute inset-0 bg-white/10 opacity-0 group-active:opacity-100 transition-opacity rounded-t-lg"></div>
+                    </div>
+                    <span class="text-[11px] font-medium text-neutral-500">${dayLabel}</span>
+                `;
+                wrapper.appendChild(column);
+            });
+
+            // Если пользователь был в конце списка, удерживаем его там (актуально для новых данных)
+            if (wasAtEnd || isFirstLoad) {
+                container.scrollLeft = container.scrollWidth;
+            }
+        }
+
+        // Управление шторкой
+        function openSheet() {
+            const infoSheet = document.getElementById('infoSheet');
+            const sheetOverlay = document.getElementById('sheetOverlay');
+            const sheetContent = document.getElementById('sheetContent');
+            infoSheet.classList.remove('hidden');
+            setTimeout(() => {
+                sheetOverlay.classList.replace('opacity-0', 'opacity-70');
+                sheetContent.classList.remove('translate-y-full');
+            }, 10);
+        }
+
+        function closeSheet() {
+            const sheetOverlay = document.getElementById('sheetOverlay');
+            const sheetContent = document.getElementById('sheetContent');
+            const infoSheet = document.getElementById('infoSheet');
+            sheetContent.classList.add('translate-y-full');
+            sheetOverlay.classList.replace('opacity-70', 'opacity-0');
+            setTimeout(() => infoSheet.classList.add('hidden'), 300);
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchUserData(); // Первый запуск
+            
+            // Интервал обновления: 3000 мс (3 секунды)
+            setInterval(fetchUserData, 3000);
         });
     </script>
 </body>
