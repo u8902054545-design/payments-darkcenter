@@ -227,17 +227,19 @@
     <script>
         // --- Конфигурация Ссылок ---
         const LINKS = {
+            // Ссылка больше не используется для перехода, но оставим для порядка
+            MAIN: "https://u8902054545-design.github.io/main-screen-darkcenter/",
             AUTH: "https://u8902054545-design.github.io/Auth-ITC-Platform/"
         };
 
         // --- Обработчики событий ---
 
-        // 1. Переход на главную (ОБНОВЛЕНО ДЛЯ POSTMESSAGE)
+        // 1. Переход на главную (ОБНОВЛЕНО: postMessage вместо location.href)
         document.getElementById('mainLinkBtn').addEventListener('click', function(event) {
             createRipple(event);
             setTimeout(() => {
-                // Вместо перехода по ссылке, отправляем сообщение родителю
-                window.parent.postMessage({ type: 'CLOSE_SUB_PAGE' }, '*');
+                // Отправляем сообщение родительскому окну
+                window.parent.postMessage('goHome', '*');
             }, 200);
         });
 
