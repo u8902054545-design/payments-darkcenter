@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Доступ ограничен</title>
-    <!-- Подключение шрифтов Google Fonts (Roboto и Material Symbols) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
@@ -215,7 +214,6 @@
         </p>
 
         <div class="actions">
-            <!-- Ссылка скрыта -->
             <button class="btn btn-filled" id="mainLinkBtn">
                 На главную
             </button>
@@ -229,17 +227,17 @@
     <script>
         // --- Конфигурация Ссылок ---
         const LINKS = {
-            MAIN: "https://u8902054545-design.github.io/main-screen-darkcenter/",
             AUTH: "https://u8902054545-design.github.io/Auth-ITC-Platform/"
         };
 
         // --- Обработчики событий ---
 
-        // 1. Переход на главную
+        // 1. Переход на главную (ОБНОВЛЕНО ДЛЯ POSTMESSAGE)
         document.getElementById('mainLinkBtn').addEventListener('click', function(event) {
             createRipple(event);
             setTimeout(() => {
-                window.location.href = LINKS.MAIN;
+                // Вместо перехода по ссылке, отправляем сообщение родителю
+                window.parent.postMessage({ type: 'CLOSE_SUB_PAGE' }, '*');
             }, 200);
         });
 
