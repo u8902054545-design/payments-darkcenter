@@ -6,11 +6,20 @@
     <title>Выплаты</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Подключение иконок Lucide -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
+        :root {
+            --primary-color: #0000FF; 
+            --md-sys-color-surface: #1E1F20; 
+            --md-sys-color-on-surface: #E3E3E3;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             -webkit-tap-highlight-color: transparent;
             background-color: #0F0F0F;
+            margin: 0;
         }
 
         .blue-border {
@@ -66,9 +75,56 @@
         html {
             scroll-behavior: smooth;
         }
+
+        /* --- MATERIAL 3 BOTTOM BAR (FLOATING) --- */
+        .nav-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 32px);
+            max-width: 500px;
+            height: 70px; 
+            background-color: var(--md-sys-color-surface);
+            border-radius: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            box-sizing: border-box;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--md-sys-color-on-surface);
+            text-decoration: none;
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-item.active {
+            background-color: #0000FF;
+            color: #FFFFFF;
+        }
+        
+        .nav-item:active {
+            transform: scale(0.95);
+        }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center p-4 pt-0 text-white">
+<body class="min-h-screen flex flex-col items-center p-4 pt-0 text-white pb-32">
     
     <header class="fixed top-0 left-0 right-0 z-40 bg-[#0F0F0F]/80 backdrop-blur-lg px-4 h-16 flex justify-between items-center max-w-lg mx-auto">
         <div class="w-10 h-10"></div>
@@ -177,6 +233,39 @@
         </div>
     </div>
 
+    <!-- Навигационная панель из 2-го кода -->
+    <nav class="nav-bar" id="main-nav">
+        <!-- Кнопка "Домой" -->
+        <div class="nav-item" id="nav-home">
+            <i data-lucide="home"></i>
+        </div>
+        
+        <!-- Ссылка: Расписание -->
+        <a href="https://u8902054545-design.github.io/DarkCenter-Cloud-Slot-Schedule/" class="nav-item" id="nav-schedule">
+            <i data-lucide="calendar-days"></i>
+        </a>
+
+        <!-- Ссылка: Облачный центр -->
+        <a href="https://u8902054545-design.github.io/cloud-center/" class="nav-item" id="nav-cloud">
+            <i data-lucide="map-pin"></i>
+        </a>
+
+        <!-- Ссылка: Платежи (АКТИВНАЯ - 4-я по счету) -->
+        <a href="https://u8902054545-design.github.io/payments-darkcenter" class="nav-item active" id="nav-payments">
+            <i data-lucide="credit-card"></i>
+        </a>
+
+        <!-- Ссылка: Обучение -->
+        <a href="https://u8902054545-design.github.io/education-darkcenter" class="nav-item" id="nav-education">
+            <i data-lucide="graduation-cap"></i>
+        </a>
+
+        <!-- Ссылка: Чаты -->
+        <a href="https://u8902054545-design.github.io/chats-darkcenter" class="nav-item" id="nav-chats">
+            <i data-lucide="message-square-more"></i>
+        </a>
+    </nav>
+
     <div id="infoSheet" class="hidden fixed inset-0 z-50 transition-opacity duration-300 pointer-events-none">
         <div id="sheetOverlay" class="absolute inset-0 bg-black opacity-0 transition-opacity duration-300 pointer-events-auto" onclick="closeSheet()"></div>
         <div id="sheetContent" class="fixed bottom-0 left-1/2 -translate-x-1/2 max-w-lg w-full bg-[#181818] rounded-t-3xl p-6 shadow-2xl transform translate-y-full transition-transform duration-300 ease-out pointer-events-auto">
@@ -199,23 +288,21 @@
     </div>
 
     <script>
+        // Инициализация иконок Lucide
+        lucide.createIcons();
+
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz12cNixEqpaB8K_b54-vbirVhCC9_fPMMiEzyuf8wJGflYhHVx4-FFytrg-ei5W2EuWg/exec";
         const formatCurrency = (val) => new Intl.NumberFormat('ru-RU').format(val);
 
-        // Храним последнее состояние данных, чтобы избежать лишней перерисовки
         let lastDataString = null;
         let isFirstLoad = true;
 
         async function fetchUserData() {
-            const email = localStorage.getItem('userEmail') || "test@example.com"; // Тестовый email если пусто
-            
+            const email = localStorage.getItem('userEmail') || "test@example.com";
             try {
-                // Добавляем timestamp для обхода кэша браузера
                 const response = await fetch(`${SCRIPT_URL}?email=${encodeURIComponent(email)}&_t=${Date.now()}`);
                 const data = await response.json();
-
                 if (data.status === 'success') {
-                    // Проверяем, изменились ли данные вообще
                     const currentDataString = JSON.stringify(data);
                     if (currentDataString !== lastDataString) {
                         updateUI(data);
@@ -235,13 +322,11 @@
             const todayEarningContainer = document.getElementById('today-earning-container');
             const wrapper = document.getElementById('chart-wrapper');
 
-            // Обновляем текстовые значения напрямую без очистки innerHTML, если это не первая загрузка
             const procHtml = `<span class="text-2xl font-semibold text-white">₽ ${formatCurrency(data.processing)}</span>`;
             const availHtml = `<span class="text-2xl font-semibold text-white">₽ ${formatCurrency(data.available)}</span>`;
             const todayHtml = `<span class="text-2xl font-bold text-white">₽ ${formatCurrency(data.today)}</span>`;
 
             if (isFirstLoad) {
-                // На первой загрузке делаем небольшую паузу для красоты анимации скелетонов
                 setTimeout(() => {
                     procContainer.innerHTML = procHtml;
                     availContainer.innerHTML = availHtml;
@@ -249,7 +334,6 @@
                     renderChart(data.history, wrapper);
                 }, 600);
             } else {
-                // Тихая замена данных
                 procContainer.innerHTML = procHtml;
                 availContainer.innerHTML = availHtml;
                 todayEarningContainer.innerHTML = todayHtml;
@@ -259,26 +343,20 @@
 
         function renderChart(history, wrapper) {
             if (!history || !Array.isArray(history)) return;
-
             const maxVal = Math.max(...history, 100);
             const today = new Date();
-            
-            // Сохраняем текущую позицию скролла
             const container = document.querySelector('.chart-container');
             const wasAtEnd = container.scrollLeft + container.clientWidth >= container.scrollWidth - 10;
 
             wrapper.innerHTML = '';
-
             history.forEach((amount, i) => {
                 const date = new Date();
                 date.setDate(today.getDate() - (6 - i));
-                
                 const dayLabel = `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}`;
                 const heightPercent = (amount / maxVal) * 100;
 
                 const column = document.createElement('div');
                 column.className = "flex flex-col items-center gap-2 w-12";
-                // bar-grow применяется только при первой отрисовке или значительных изменениях
                 const animClass = isFirstLoad ? 'bar-grow' : '';
                 
                 column.innerHTML = `
@@ -291,13 +369,11 @@
                 wrapper.appendChild(column);
             });
 
-            // Если пользователь был в конце списка, удерживаем его там (актуально для новых данных)
             if (wasAtEnd || isFirstLoad) {
                 container.scrollLeft = container.scrollWidth;
             }
         }
 
-        // Управление шторкой
         function openSheet() {
             const infoSheet = document.getElementById('infoSheet');
             const sheetOverlay = document.getElementById('sheetOverlay');
@@ -318,11 +394,13 @@
             setTimeout(() => infoSheet.classList.add('hidden'), 300);
         }
 
-        // Инициализация
+        // Логика для кнопки "Домой" (скролл вверх)
+        document.getElementById('nav-home').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
-            fetchUserData(); // Первый запуск
-            
-            // Интервал обновления: 3000 мс (3 секунды)
+            fetchUserData();
             setInterval(fetchUserData, 3000);
         });
     </script>
