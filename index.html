@@ -6,7 +6,6 @@
     <title>Выплаты</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Подключение иконок Lucide -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <style>
         :root {
@@ -201,8 +200,7 @@
 
             <div class="w-full overflow-x-auto chart-container pb-4 mb-8">
                 <div id="chart-wrapper" class="flex items-end gap-4 min-w-max px-2 h-48">
-                    <!-- График -->
-                </div>
+                    </div>
             </div>
 
             <div class="space-y-3 mb-12">
@@ -233,34 +231,27 @@
         </div>
     </div>
 
-    <!-- Навигационная панель из 2-го кода -->
     <nav class="nav-bar" id="main-nav">
-        <!-- Кнопка "Домой" -->
         <div class="nav-item" id="nav-home">
             <i data-lucide="home"></i>
         </div>
         
-        <!-- Ссылка: Расписание -->
         <a href="https://u8902054545-design.github.io/DarkCenter-Cloud-Slot-Schedule/" class="nav-item" id="nav-schedule">
             <i data-lucide="calendar-days"></i>
         </a>
 
-        <!-- Ссылка: Облачный центр -->
         <a href="https://u8902054545-design.github.io/cloud-center/" class="nav-item" id="nav-cloud">
             <i data-lucide="map-pin"></i>
         </a>
 
-        <!-- Ссылка: Платежи (АКТИВНАЯ - 4-я по счету) -->
         <a href="https://u8902054545-design.github.io/payments-darkcenter" class="nav-item active" id="nav-payments">
             <i data-lucide="credit-card"></i>
         </a>
 
-        <!-- Ссылка: Обучение -->
         <a href="https://u8902054545-design.github.io/education-darkcenter" class="nav-item" id="nav-education">
             <i data-lucide="graduation-cap"></i>
         </a>
 
-        <!-- Ссылка: Чаты -->
         <a href="https://u8902054545-design.github.io/chats-darkcenter" class="nav-item" id="nav-chats">
             <i data-lucide="message-square-more"></i>
         </a>
@@ -291,7 +282,8 @@
         // Инициализация иконок Lucide
         lucide.createIcons();
 
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz12cNixEqpaB8K_b54-vbirVhCC9_fPMMiEzyuf8wJGflYhHVx4-FFytrg-ei5W2EuWg/exec";
+        // ОБНОВЛЕННЫЙ URL
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzZG9AyQuVqP3yTE8Ki8FGzFMG0UI_TX1P6ldm1ciNO_NXwxO0djaSroN1UTv85Yld53A/exec";
         const formatCurrency = (val) => new Intl.NumberFormat('ru-RU').format(val);
 
         let lastDataString = null;
@@ -405,4 +397,4 @@
         });
     </script>
 </body>
-</html>
+    </html>
